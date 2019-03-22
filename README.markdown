@@ -1,3 +1,8 @@
+このブランチはof10.0.1で簡易的に動作するように調整したものであり、その動作には責任を持つものではありません。
+使用する際は各人の責任において行なってください。
+
+--------------------------------------------------------------------------------------------------------------------
+
 Version 1.0 of ofxOpenNI has been deprecated (originally the master and develop branches)
 
 You can get a copy by downloading a zip from here: https://github.com/gameoverhack/ofxOpenNI/tree/v1.0
