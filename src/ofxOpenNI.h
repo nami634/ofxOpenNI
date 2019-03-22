@@ -39,8 +39,10 @@ static int instanceCount = -1;
 // (but much lower FPS in main thread...;-() see line ~1712 of ofxOpenNI.cpp
 #define USE_SIGNALS_HACK 1
 
+#include "ofMain.h"
 #include "ofxOpenNITypes.h"
 #include "ofxOpenNIUtils.h"
+#include "ofxXmlPoco.h"
 
 using namespace xn;
 

@@ -38,20 +38,7 @@
 #include <XnLog.h>
 #include <XnTypes.h>
 
-#include "ofConstants.h"
-#include "ofPoint.h"
-#include "ofMesh.h"
-#include "ofPixels.h"
-#include "ofTexture.h"
-#include "ofGraphics.h"
-#include "ofMatrix3x3.h"
-#include "ofQuaternion.h"
-#include "of3dUtils.h"
-#include "ofLog.h"
-#include "ofThread.h"
-#include "ofEvents.h"
-#include "ofNode.h"
-#include "ofCamera.h"
+#include "ofMain.h"
 
 #define YUV422_U  0
 #define YUV422_Y1 1

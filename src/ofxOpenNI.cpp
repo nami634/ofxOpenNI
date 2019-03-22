@@ -157,7 +157,7 @@ bool ofxOpenNI::init(string oniFilePath, string xmlFilePath, bool threaded){
 void ofxOpenNI::start(){
     if(bIsThreaded && !isThreadRunning()) {
         ofLogNotice(LOG_NAME) << "Starting ofxOpenNI with threading";
-        startThread(true, false);
+        startThread();
     } else if(!bIsThreaded) {
         ofLogNotice(LOG_NAME) << "Starting ofxOpenNI without threading";
     }
@@ -599,7 +599,7 @@ void ofxOpenNI::setFrame(int frame){
             bPaused = false;
             updateGenerators();
             bPaused = true;
-            startThread(true, false);
+            startThread();
         }
     }
 }
@@ -672,7 +672,7 @@ void ofxOpenNI::nextFrame(){
             bPaused = false;
             updateGenerators();
             bPaused = true;
-            startThread(true, false);
+            startThread();
         }
     }
 }
@@ -688,7 +688,7 @@ void ofxOpenNI::previousFrame(){
             bPaused = false;
             updateGenerators();
             bPaused = true;
-            startThread(true, false);
+            startThread();
         }
     }
 }
@@ -1186,9 +1186,9 @@ void ofxOpenNI::update(){
                     if(user.getUseMaskTexture() && user.bNewPixels){
                         if(user.maskTexture.getWidth() != getWidth() || user.maskTexture.getHeight() != getHeight()){
                             ofLogVerbose(LOG_NAME) << "Allocating mask texture " << user.getXnID();
-                            user.maskTexture.allocate(getWidth(), getHeight(), ofGetGLTypeFromPixelFormat(user.getMaskPixelFormat()));
+                            user.maskTexture.allocate(getWidth(), getHeight(), ofGetGLFormatFromPixelFormat(user.getMaskPixelFormat()));
                         }
-                        if(user.maskPixels.getPixels() != NULL) user.maskTexture.loadData(user.maskPixels.getPixels(), getWidth(), getHeight(), ofGetGLTypeFromPixelFormat(user.getMaskPixelFormat()));
+                        if(user.maskPixels.getPixels() != NULL) user.maskTexture.loadData(user.maskPixels.getPixels(), getWidth(), getHeight(), ofGetGLFormatFromPixelFormat(user.getMaskPixelFormat()));
                     }
                     user.bNewPixels = false;
                     user.bNewPointCloud = false;
@@ -1216,9 +1216,9 @@ void ofxOpenNI::update(){
                 if(depthThreshold.getUseMaskPixels()){
                     if(depthThreshold.maskTexture.getWidth() != getWidth() || depthThreshold.maskTexture.getHeight() != getHeight()){
                         ofLogVerbose(LOG_NAME) << "Allocating mask texture for depthThreshold";
-                        depthThreshold.maskTexture.allocate(getWidth(), getHeight(), ofGetGLTypeFromPixelFormat(depthThreshold.getMaskPixelFormat()));
+                        depthThreshold.maskTexture.allocate(getWidth(), getHeight(), ofGetGLFormatFromPixelFormat(depthThreshold.getMaskPixelFormat()));
                     }
-                    depthThreshold.maskTexture.loadData(depthThreshold.maskPixels.getPixels(), getWidth(), getHeight(), ofGetGLTypeFromPixelFormat(depthThreshold.getMaskPixelFormat()));
+                    depthThreshold.maskTexture.loadData(depthThreshold.maskPixels.getPixels(), getWidth(), getHeight(), ofGetGLFormatFromPixelFormat(depthThreshold.getMaskPixelFormat()));
                 }
                 if(depthThreshold.getUseDepthPixels()){
                     if(depthThreshold.depthTexture.getWidth() != getWidth() || depthThreshold.depthTexture.getHeight() != getHeight()){
@@ -1605,7 +1605,7 @@ void ofxOpenNI::updateUserPixels(ofxOpenNIUser & user){
             break;
             
         default:
-            ofLogError(LOG_NAME) << "Mask pixel type not supported: " << user.getMaskPixelFormat();
+            ofLogError(LOG_NAME) << "Mask pixel type not supported: " << ofToString(user.getMaskPixelFormat());
             break;
     }
     
@@ -1728,7 +1728,7 @@ void ofxOpenNI::updateDepthThresholds(const unsigned short& depth, ofColor& dept
                     break;
                     
                 default:
-                    ofLogError(LOG_NAME) << "Mask pixel type not supported: " << depthThreshold.getMaskPixelFormat();
+                    ofLogError(LOG_NAME) << "Mask pixel type not supported: " << ofToString(depthThreshold.getMaskPixelFormat());
                     break;
             }
             depthThreshold.bNewPixels = true;
@@ -1884,7 +1884,7 @@ void ofxOpenNI::setMaskPixelFormatAllUsers(ofPixelFormat format){
             currentTrackedUsers[currentTrackedUserIDs[i]].setMaskPixelFormat(format);
         }
     }else{
-        ofLogError(LOG_NAME) << "Mask pixel format not supported: " << format;
+        ofLogError(LOG_NAME) << "Mask pixel format not supported: " << ofToString(format);
     }
     
 }
